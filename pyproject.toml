@@ -1,0 +1,17 @@
+[project]
+name = "fifa-world-cup-2026"
+version = "1.0.0"
+description = "FIFA World Cup 2026 Analytics Dashboard"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "streamlit>=1.35.0",
+    "pandas>=2.0.0",
+    "numpy>=1.24.0",
+    "plotly>=5.18.0",
+    "folium>=0.16.0",
+    "streamlit-folium>=0.15.0",
+]
+
+[tool.streamlit]
+entrypoint = "streamlit_app.py"

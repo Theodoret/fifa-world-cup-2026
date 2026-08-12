@@ -1,0 +1,38 @@
+=== FIFA World Cup 2026 Analytics Dashboard ===
+Last updated: 2026-08-05
+
+Current Milestone: Milestone 14 — Performance optimization (complete)
+
+Completed tasks:
+(all milestones 1-14 complete)
+
+In-progress tasks:
+- None
+
+Next tasks:
+- Milestone 15: Testing (pytest, integration tests)
+- Milestone 16: Documentation (full user docs)
+- Milestone 17: Deployment
+
+Pending decisions:
+- Whether to use SQLite or CSV for data access
+- Whether to add DuckDB as optional dependency
+
+Known issues:
+- None
+
+Dataset changes:
+- Raw data symlinked from FIFA-World-Cup-2026-Dataset (12 CSV files)
+
+Files modified (this session):
+- dashboard/app.py (updated: global filters sidebar)
+- dashboard/config.py (updated: added GLOBAL_FILTERS)
+- dashboard/utils/state.py (new: breadcrumb drill-down navigation)
+- dashboard/utils/methodology.py (new: metric transparency renderer)
+- dashboard/utils/global_filters.py (new: global filter sidebar)
+- dashboard/analytics/advanced_metrics.py (new: advanced match metrics)
+- dashboard/analytics/team_analysis.py (updated: radar, rolling trends)
+- dashboard/analytics/player_analysis.py (updated: player comparisons)
+- dashboard/analytics/environment_analysis.py (updated: pressure/oxygen estimates)
+- dashboard/pages/01-08 (all updated: breadcrumbs, global filters, methodology)
+- dashboard/docs/CHANGELOG.md (new entry)
