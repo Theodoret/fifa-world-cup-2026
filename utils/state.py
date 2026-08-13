@@ -12,9 +12,16 @@ def safe_page_link(page, label, query_params=None):
     """Render a page_link, falling back to plain text when the target page
     is not registered (e.g. running a page standalone in AppTest)."""
     try:
-        return st.page_link(page, label=label, query_params=query_params or None,
-                            width="stretch")
-    except Exception:
+        return st.page_link(
+            page,
+            label=label,
+            query_params=query_params or None,
+            width="stretch",
+        )
+    except Exception as exc:
+        # Never swallow Streamlit script-control exceptions (rerun / stop).
+        if exc.__class__.__name__ in {"RerunException", "StopException", "RerunData"}:
+            raise
         return st.write(label)
 
 
