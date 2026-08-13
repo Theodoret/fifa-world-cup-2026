@@ -12,11 +12,11 @@ from utils.loader import (load_matches, load_teams, load_tournament_stages,
                           load_venues)
 from utils.preprocessing import clean_matches, merge_match_with_teams, merge_match_with_stages
 from utils.styles import apply_custom_css, get_theme_colors
+from utils.embed import embed_html
 from utils.state import render_breadcrumbs, get_param, set_params
 from utils.methodology import annotate_chart, render_metric_methodology
 from analytics.advanced_metrics import (chance_creation, match_momentum, style_per_match)
 
-st.set_page_config(page_title="Match Explorer", page_icon="📋", layout="wide")
 apply_custom_css()
 render_breadcrumbs("Matches")
 
@@ -171,10 +171,7 @@ st.markdown(f"""
 </div>
 """, unsafe_allow_html=True)
 
-# Scoreboard card — use components.html to avoid Streamlit markdown sanitization
-# which strips complex inline-CSS blocks.
-import streamlit.components.v1 as components
-
+# Scoreboard card — iframe avoids Streamlit markdown sanitization of inline CSS.
 home_code = sel_match.get("home_fifa_code", "")
 away_code = sel_match.get("away_fifa_code", "")
 
@@ -279,7 +276,7 @@ scoreboard_html = f"""
     </div>
 </div>
 """
-components.html(scoreboard_html, height=380)
+embed_html(scoreboard_html, height=380)
 
 # --- Advanced Match Metrics ---
 st.subheader("Advanced Match Metrics")
@@ -334,7 +331,7 @@ with tab4:
         fig = px.bar(moments, x="interval", y="momentum", color="team_name",
                      title="Match Momentum (weighted events per interval)",
                      labels={"interval": "Minute", "momentum": "Weighted Events"})
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, width="stretch")
         render_metric_methodology("match_momentum")
     else:
         st.info("No event data for momentum analysis.")

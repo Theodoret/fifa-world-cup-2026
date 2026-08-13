@@ -14,7 +14,6 @@ from analytics.environment_analysis import (venue_summary, elevation_analysis,
                                             venue_environment, climate_analysis,
                                             venue_climate_profile)
 
-st.set_page_config(page_title="Environmental", page_icon="🌡️", layout="wide")
 apply_custom_css()
 render_breadcrumbs("Environmental")
 
@@ -48,14 +47,14 @@ if not climate.empty:
     counts = climate["climate_class"].value_counts().reset_index()
     counts.columns = ["Climate Class", "Venues"]
     fig = px.bar(counts, x="Climate Class", y="Venues", color="Climate Class", title="Venues by Climate Class")
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width="stretch")
 
 st.subheader("Elevation vs Match Outcomes")
 elev_df = elevation_analysis(venues, matches)
 if not elev_df.empty:
     elev_df["elevation_range"] = elev_df["avg_elevation"].apply(lambda x: f"{x:.0f}m" if pd.notna(x) else "N/A")
     fig = px.line(elev_df, x="elevation_range", y="avg_goals", markers=True, title="Average Goals by Elevation Bracket")
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width="stretch")
     annotate_chart("PER-MATCH AVERAGE goals per elevation bracket.")
 
 st.subheader("Relationships: Environment vs Match Metrics")
@@ -63,7 +62,7 @@ rel = climate_analysis(venues, matches, team_stats)
 if not rel.empty:
     metric = st.selectbox("Match metric", ["avg_possession", "avg_shots"], key="env_metric")
     fig = px.scatter(rel, x="avg_elevation", y=metric, color="stadium_name", hover_data=["city"], title=f"Venue Elevation vs {metric}")
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width="stretch")
     annotate_chart("Association only — NOT causation.")
 
 st.subheader("Venue Summary")

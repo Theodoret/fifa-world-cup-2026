@@ -13,7 +13,6 @@ from analytics.player_analysis import (player_summary,
                                        player_vs_position_average, player_vs_team_average,
                                        player_vs_tournament_average)
 
-st.set_page_config(page_title="Players", page_icon="⭐", layout="wide")
 apply_custom_css()
 
 player_stats = load_player_stats()

@@ -265,10 +265,9 @@ def build_bracket_html(
         )
 
     css = f"""
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
     * {{ box-sizing: border-box; margin: 0; padding: 0; }}
     body {{
-        font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
         background: transparent;
         color: {theme['text']};
     }}

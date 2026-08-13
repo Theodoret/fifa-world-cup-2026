@@ -24,7 +24,7 @@ streamlit run streamlit_app.py
 |------|-------------|
 | `streamlit_app.py` | Cloud entry point |
 | `app.py` | Navigation shell and sidebar |
-| `pages/` | Dashboard pages |
+| `views/` | Dashboard pages |
 | `analytics/` | Metric and analysis logic |
 | `utils/` | Loaders, styling, state |
 | `data/raw/` | CSV datasets |

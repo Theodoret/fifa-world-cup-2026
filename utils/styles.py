@@ -160,8 +160,6 @@ def apply_custom_css():
 
     st.markdown(f"""
     <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
-
     /* ─── Design tokens ─── */
     :root {{
         --bg: {c['bg']};
@@ -186,7 +184,7 @@ def apply_custom_css():
         --radius: 14px;
         --radius-sm: 10px;
         --radius-xs: 6px;
-        --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        --font: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         --transition: 0.18s cubic-bezier(0.4, 0, 0.2, 1);
     }}
 
@@ -792,6 +790,6 @@ def render_theme_toggle():
     icon = "🌙" if not is_dark else "☀️"
     label = "Dark mode" if not is_dark else "Light mode"
 
-    if st.button(f"{icon}  {label}", key="theme_btn", use_container_width=True):
+    if st.button(f"{icon}  {label}", key="theme_btn", width="stretch"):
         st.session_state.dark_mode = not is_dark
         st.rerun()

@@ -10,7 +10,6 @@ from utils.state import render_breadcrumbs
 from analytics.comparison_engine import compare_two_teams
 from analytics.team_analysis import all_teams_summary
 
-st.set_page_config(page_title="Comparison", page_icon="⚖️", layout="wide")
 apply_custom_css()
 render_breadcrumbs("Comparison")
 

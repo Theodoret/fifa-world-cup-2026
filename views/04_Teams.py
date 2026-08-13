@@ -14,7 +14,6 @@ from utils.methodology import annotate_chart, render_metric_methodology
 from analytics.team_analysis import (all_teams_summary, team_aggregate, team_radar_data, rolling_team_trend)
 from analytics.advanced_metrics import aggr_index_summary
 
-st.set_page_config(page_title="Teams", page_icon="👥", layout="wide")
 apply_custom_css()
 
 matches = load_matches()
@@ -150,5 +149,5 @@ if not team_players.empty:
         }
         if continent:
             player_params["continent"] = continent
-        safe_page_link("pages/05_Players.py", f"⭐ {p['player_name']} ({p['position']})",
+        safe_page_link("views/05_Players.py", f"⭐ {p['player_name']} ({p['position']})",
                      query_params=player_params)

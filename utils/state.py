@@ -58,14 +58,14 @@ def get_root_section(page_name: str) -> str:
 
 # Map page names to their file paths for breadcrumb links
 PAGE_FILE_MAP = {
-    "Tournament": "pages/01_Tournament.py",
-    "Matches": "pages/02_Matches.py",
-    "Continents": "pages/03_Continents.py",
-    "Teams": "pages/04_Teams.py",
-    "Players": "pages/05_Players.py",
-    "Comparison": "pages/06_Comparison.py",
-    "Environmental": "pages/07_Environmental.py",
-    "Data Explorer": "pages/08_Data_Explorer.py",
+    "Tournament": "views/01_Tournament.py",
+    "Matches": "views/02_Matches.py",
+    "Continents": "views/03_Continents.py",
+    "Teams": "views/04_Teams.py",
+    "Players": "views/05_Players.py",
+    "Comparison": "views/06_Comparison.py",
+    "Environmental": "views/07_Environmental.py",
+    "Data Explorer": "views/08_Data_Explorer.py",
 }
 
 # Each page's primary drill-down param (used to detect stale _from)
@@ -114,29 +114,29 @@ def render_breadcrumbs(page_name: str = "Tournament",
             from_page = None
 
     root = from_page or page_name
-    root_file = PAGE_FILE_MAP.get(root, "pages/01_Tournament.py")
+    root_file = PAGE_FILE_MAP.get(root, "views/01_Tournament.py")
     crumbs = [(root, root_file, {})]
 
     continent = get_param("continent")
     if continent:
-        crumbs.append((f"🌍 {continent}", "pages/03_Continents.py", {"continent": continent}))
+        crumbs.append((f"🌍 {continent}", "views/03_Continents.py", {"continent": continent}))
 
     # Use live widget overrides when available (avoids stale URL on first interaction)
     team_id = team_id_override if team_id_override is not None else get_param("team_id")
     team_name = team_name_override or get_param("team_name")
     if team_name:
-        crumbs.append((f"👥 {team_name}", "pages/04_Teams.py",
+        crumbs.append((f"👥 {team_name}", "views/04_Teams.py",
                        {"team_id": team_id, "team_name": team_name}))
 
     player_id = player_id_override if player_id_override is not None else get_param("player_id")
     player_name = player_name_override or get_param("player_name")
     if player_name:
-        crumbs.append((f"⭐ {player_name}", "pages/05_Players.py",
+        crumbs.append((f"⭐ {player_name}", "views/05_Players.py",
                        {"player_id": player_id, "player_name": player_name}))
 
     match_id = get_param("match_id")
     if match_id:
-        crumbs.append((f"📋 Match {match_id}", "pages/02_Matches.py", {"match_id": match_id}))
+        crumbs.append((f"📋 Match {match_id}", "views/02_Matches.py", {"match_id": match_id}))
 
     if len(crumbs) > 1:
         cols = st.columns(len(crumbs))
@@ -152,7 +152,7 @@ def team_link(team_name, team_id, from_page=None):
     params = {"team_id": team_id, "team_name": team_name}
     if from_page:
         params["_from"] = from_page
-    safe_page_link("pages/04_Teams.py", team_name, query_params=params)
+    safe_page_link("views/04_Teams.py", team_name, query_params=params)
 
 
 def player_link(player_name, player_id, from_page=None):
@@ -160,7 +160,7 @@ def player_link(player_name, player_id, from_page=None):
     params = {"player_id": player_id, "player_name": player_name}
     if from_page:
         params["_from"] = from_page
-    safe_page_link("pages/05_Players.py", player_name, query_params=params)
+    safe_page_link("views/05_Players.py", player_name, query_params=params)
 
 
 def continent_link(continent, from_page=None):
@@ -168,7 +168,7 @@ def continent_link(continent, from_page=None):
     params = {"continent": continent}
     if from_page:
         params["_from"] = from_page
-    safe_page_link("pages/03_Continents.py", continent, query_params=params)
+    safe_page_link("views/03_Continents.py", continent, query_params=params)
 
 
 def match_link(match_id, label, from_page=None):
@@ -176,4 +176,4 @@ def match_link(match_id, label, from_page=None):
     params = {"match_id": match_id}
     if from_page:
         params["_from"] = from_page
-    safe_page_link("pages/02_Matches.py", label, query_params=params)
+    safe_page_link("views/02_Matches.py", label, query_params=params)

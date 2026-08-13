@@ -3,7 +3,6 @@ Page 1: Tournament Overview
 Breadcrumb root. Uses query params for navigation to team/continent pages.
 """
 import streamlit as st
-import streamlit.components.v1 as components
 import pandas as pd
 import plotly.express as px
 
@@ -13,13 +12,13 @@ from utils.styles import apply_custom_css, get_theme_colors
 from utils.state import render_breadcrumbs, get_param, safe_page_link
 from utils.methodology import annotate_chart
 from utils.bracket import build_bracket_html, bracket_height
+from utils.embed import embed_html
 from analytics.team_analysis import all_teams_summary
 from analytics.continent_analysis import continent_summary
 from analytics.advanced_metrics import aggr_index_summary
 from analytics.player_analysis import player_summary, top_players
 from utils.loader import load_player_stats
 
-st.set_page_config(page_title="Tournament Overview", page_icon="🏆", layout="wide")
 apply_custom_css()
 render_breadcrumbs("Tournament")
 st.markdown("<h1 class='main-header'>🏆 Tournament Overview</h1>", unsafe_allow_html=True)
@@ -75,7 +74,7 @@ if not team_summary.empty:
                 tid = teams[teams["team_name"] == tname]["team_id"].values[0]
                 rcols = st.columns([2, 1, 1, 1, 1, 1, 1, 1, 1])
                 with rcols[0]:
-                    safe_page_link("pages/04_Teams.py", tname,
+                    safe_page_link("views/04_Teams.py", tname,
                                    query_params={"team_id": tid, "team_name": tname, "_from": "Tournament"})
                 with rcols[1]: st.write(str(int(row["matches_played"])))
                 with rcols[2]: st.write(str(int(row["wins"])))
@@ -91,7 +90,7 @@ else:
 st.subheader("Tournament Bracket")
 bracket_html = build_bracket_html(matches_enriched, teams, theme=get_theme_colors())
 if bracket_html:
-    components.html(bracket_html, height=bracket_height(matches_enriched), scrolling=True)
+    embed_html(bracket_html, height=bracket_height(matches_enriched))
 else:
     st.info("Knockout bracket data not available.")
 
@@ -108,14 +107,14 @@ if not continent_df.empty:
                  labels={"total_points": "Points", "confederation": ""})
     fig.update_traces(texttemplate="%{text}% WR", textposition="outside")
     fig.update_layout(showlegend=False)
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width="stretch")
     annotate_chart("Points are TOTALS. Win rate is a PERCENTAGE.")
 
     # Confederation links in one row
     link_cols = st.columns(len(continent_df))
     for ci, (_, row) in enumerate(continent_df.iterrows()):
         with link_cols[ci]:
-            safe_page_link("pages/03_Continents.py", f"🌍 {row['confederation']}",
+            safe_page_link("views/03_Continents.py", f"🌍 {row['confederation']}",
                            query_params={"continent": row["confederation"], "_from": "Tournament"})
 else:
     st.info("No continent data available.")
@@ -128,7 +127,7 @@ if not aggr.empty:
     fig = px.bar(aggr, x="team_name", y="aggressiveness_index_norm", color="team_name",
                  title="Normalized Aggressiveness Index (0-100)", labels={"aggressiveness_index_norm": "Index"})
     fig.update_layout(showlegend=False, xaxis_tickangle=-45)
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width="stretch")
     annotate_chart("Index NORMALIZED 0-100 across teams. Per-match averages of fouls/yellows/reds.",
                    metric_key="aggressiveness_index")
 else:
@@ -170,7 +169,7 @@ if not top.empty:
     for _, r in top[existing + ["player_id"]].iterrows():
         cols = st.columns(col_widths)
         with cols[0]:
-            safe_page_link("pages/05_Players.py", f"⭐ {r['player_name']}",
+            safe_page_link("views/05_Players.py", f"⭐ {r['player_name']}",
                            query_params={"player_id": r["player_id"], "player_name": r["player_name"],
                                          "_from": "Tournament"})
         for j, c in enumerate(existing[1:], 1):

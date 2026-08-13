@@ -14,7 +14,6 @@ from utils.state import render_breadcrumbs, get_param, set_params, safe_page_lin
 from utils.methodology import annotate_chart
 from analytics.continent_analysis import continent_summary, continent_best_performers
 
-st.set_page_config(page_title="Continents", page_icon="🌍", layout="wide")
 apply_custom_css()
 render_breadcrumbs("Continents")
 
@@ -44,7 +43,7 @@ for _, row in conf_df.iterrows():
     for i, v in enumerate(vals):
         with cols[i]:
             if i == 0:
-                safe_page_link("pages/03_Continents.py", f"🌍 {v}",
+                safe_page_link("views/03_Continents.py", f"🌍 {v}",
                                query_params={"continent": v})
             elif isinstance(v, float):
                 st.write(f"{v:.1f}")
@@ -100,7 +99,7 @@ if sel_confed and sel_confed in conf_df["confederation"].values:
     best = continent_best_performers(teams, matches, team_stats, sel_confed)
     if not best.empty:
         for _, row in best.iterrows():
-            safe_page_link("pages/04_Teams.py", f"👥 {row['team_name']}",
+            safe_page_link("views/04_Teams.py", f"👥 {row['team_name']}",
                          query_params={"team_id": row["team_id"], "team_name": row["team_name"],
                                        "continent": sel_confed, "_from": "Continents"})
 

@@ -11,7 +11,6 @@ from utils.loader import (
 )
 from utils.styles import apply_custom_css
 from utils.state import render_breadcrumbs
-st.set_page_config(page_title="Data Explorer", page_icon="🔍", layout="wide")
 apply_custom_css()
 render_breadcrumbs("Data Explorer")
 
