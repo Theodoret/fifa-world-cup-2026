@@ -42,10 +42,11 @@ def run() -> None:
         for page in NAVIGATION
     ]
 
-    # Built-in sidebar nav is more reliable on Cloud than custom page_link menus
-    # with position="hidden" (those can blank the UI with no Python traceback).
-    nav = st.navigation(pages, position="sidebar")
+    # Hide default nav so we can put the brand above custom page links.
+    nav = st.navigation(pages, position="hidden")
 
+    # Sidebar before nav.run() — pages that call st.stop() would otherwise
+    # halt the script before these widgets are drawn.
     with st.sidebar:
         st.markdown(
             """
@@ -54,10 +55,15 @@ def run() -> None:
                 <div class="sidebar-brand-title">FIFA World Cup 2026</div>
                 <div class="sidebar-brand-sub">Analytics Dashboard</div>
             </div>
+            <div class="sidebar-nav-label">Navigation</div>
             """,
             unsafe_allow_html=True,
         )
+        for p in pages:
+            st.page_link(p, width="stretch", query_params={})
+        st.markdown("<div class='sidebar-footer'>", unsafe_allow_html=True)
         render_theme_toggle()
+        st.markdown("</div>", unsafe_allow_html=True)
 
     nav.run()
 
