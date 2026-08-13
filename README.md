@@ -11,13 +11,6 @@ pip install -r requirements.txt
 streamlit run streamlit_app.py
 ```
 
-## Deploy on Streamlit Community Cloud
-
-1. Push this repository to [GitHub](https://github.com/Theodoret/fifa-world-cup-2026).
-2. Open [Streamlit Community Cloud](https://share.streamlit.io/) and connect the repo.
-3. Set **Main file path** to `streamlit_app.py`.
-4. Deploy — data files under `data/raw/` are bundled in the repo.
-
 ## Project structure
 
 | Path | Description |
@@ -28,3 +21,9 @@ streamlit run streamlit_app.py
 | `analytics/` | Metric and analysis logic |
 | `utils/` | Loaders, styling, state |
 | `data/raw/` | CSV datasets |
+
+## Disclaimer
+AI was used in this website production as follows:
+- ChatGPT with GPT-5.6 Luna model for work plan planning
+- Mystrial Vibe with DeepSeek V4 Flash 0423 model for plan execution
+- Cursor with Cursor Grok 4.6, Composer 2.5, Opus 5, GPT-5.6 Sol, and Cursor Grok 4.5 for UI finalization and debugging
